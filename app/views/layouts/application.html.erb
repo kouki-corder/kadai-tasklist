@@ -12,7 +12,8 @@
   <body>
     <div class="container">
       <%= @message %>
-    </div>
+      <%= render 'layouts/flash_messages' %>
     <%= yield %>
+    </div>
   </body>
 </html>
