@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
- 
+  before_action :require_user_logged_in
+  include SessionsHelper
   
   def index
-    @tasks = Task.all
+    if logged_in?
+      @tasks = current_user.task.order(id: :desc)
+    end
   end
   
   def show
@@ -10,11 +13,11 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = Task.new
+   @task = current_user.task.build
   end
   
   def create
-    @task = Task.new(task_params)
+    @task = current_user.task.build(task_params)
     
     if @task.save
       flash[:success] = '保存されました'
