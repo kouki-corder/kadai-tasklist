@@ -3,8 +3,9 @@
 <p>status: <%= @task.status %></p>
 <p>やること: <%= @task.content %></p>
 
-
+<% if logged_in? && @task.user_id == current_user.id %>
 <%= link_to('編集する', edit_task_path) %>
 <%= link_to 'このタスクを削除する', @task, method: :delete, data: { confirm: '本当に削除してよろしいですか？' } %>
+<% end %>
 
 <%= link_to('一覧に戻る', tasks_path) %>
