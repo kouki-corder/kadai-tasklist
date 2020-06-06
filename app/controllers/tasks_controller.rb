@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
+  before_action :correct_user, only: [:destroy, :edit]
   include SessionsHelper
   
   def index
     if logged_in?
-      @task = current_user.task.build
       @tasks = current_user.task.order(id: :desc)
     end
   end
@@ -60,5 +60,11 @@ def task_params
   params.require(:task).permit(:status, :content)
 end
 
+def correct_user
+  @task = current_user.task.find_by(id: params[:id])
+  unless @task
+    redirect_to root_url
+  end
+end
 
 end
