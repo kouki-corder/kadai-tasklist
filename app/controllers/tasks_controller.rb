@@ -3,8 +3,10 @@ class TasksController < ApplicationController
   include SessionsHelper
   
   def index
+    if logged_in?
+      @task = current_user.task.build
       @tasks = current_user.task.order(id: :desc)
-      
+    end
   end
   
   def show
