@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   
   def index
       @tasks = current_user.task.order(id: :desc)
+      
   end
   
   def show
