@@ -3,9 +3,7 @@ class TasksController < ApplicationController
   include SessionsHelper
   
   def index
-    if logged_in?
       @tasks = current_user.task.order(id: :desc)
-    end
   end
   
   def show
